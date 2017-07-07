@@ -16,6 +16,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.1")
 
 include_directories(include)
+include_directories(../FaceDetection/include/)
 
 set(src_files 
     src/cfan.cpp
@@ -23,6 +24,7 @@ set(src_files
     src/sift.cpp
     )
 
+link_directories(../FaceDetection/)
 add_library(seeta_fa_lib SHARED ${src_files})
 set(fa_required_libs seeta_fa_lib)
 
