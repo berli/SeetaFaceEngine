@@ -90,27 +90,52 @@ std::string MODEL_DIR = "./model/";
 #endif
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
+  cout<<"starting..."<<endl;
+  cout<<"Initialize face detection model..."<<endl;
   // Initialize face detection model
   seeta::FaceDetection detector("seeta_fd_frontal_v1.0.bin");
   detector.SetMinFaceSize(40);
   detector.SetScoreThresh(2.f);
   detector.SetImagePyramidScaleFactor(0.8f);
   detector.SetWindowStep(4, 4);
+  cout<<"Initialize face detection model done..."<<endl;
 
   // Initialize face alignment model 
   seeta::FaceAlignment point_detector("seeta_fa_v1.1.bin");
 
   // Initialize face Identification model 
+  cout<<"Initialize face recognizer model:"<<(MODEL_DIR + "seeta_fr_v1.0.bin")<<endl;
   FaceIdentification face_recognizer((MODEL_DIR + "seeta_fr_v1.0.bin").c_str());
   std::string test_dir = DATA_DIR + "test_face_recognizer/";
-
+  
+  std::cout<<"test_dir:"<<test_dir<<endl;
   //load image
-  cv::Mat gallery_img_color = cv::imread(test_dir + "images/compare_im/Aaron_Peirsol_0001.jpg", 1);
+  cv::Mat gallery_img_color;
+  cv::Mat probe_img_color;
+  if(argc == 1)
+  {
+     gallery_img_color = cv::imread(test_dir + "images/compare_im/Aaron_Peirsol_0001.jpg", 1);
+     probe_img_color = cv::imread(test_dir + "images/compare_im/Aaron_Peirsol_0004.jpg", 1);
+  }
+  else if( argc == 3 )
+  {
+     gallery_img_color = cv::imread(argv[1], 1);
+     probe_img_color = cv::imread(argv[2], 1);
+
+     cout<<"img1:"<<argv[1]<<endl;
+     cout<<"img2:"<<argv[2]<<endl;
+  }
+  else
+  {
+     cout<<"arguments error"<<endl;
+     return -1;
+  }
+
   cv::Mat gallery_img_gray;
   cv::cvtColor(gallery_img_color, gallery_img_gray, CV_BGR2GRAY);
 
-  cv::Mat probe_img_color = cv::imread(test_dir + "images/compare_im/Aaron_Peirsol_0004.jpg", 1);
   cv::Mat probe_img_gray;
   cv::cvtColor(probe_img_color, probe_img_gray, CV_BGR2GRAY);
 

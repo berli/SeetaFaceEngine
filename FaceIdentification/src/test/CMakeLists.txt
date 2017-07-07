@@ -2,8 +2,9 @@ aux_source_directory (. SRC_LIST)
 
 message(${SRC_LIST})
 
-link_directories(../../../FaceDetection/)
-link_directories(../../../FaceAlignment/)
+#link_directories(../../../FaceDetection/)
+#link_directories(../../../FaceAlignment/)
+link_directories(./)
 
 # add external libraries
 find_package(OpenCV REQUIRED)
