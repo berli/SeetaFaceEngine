@@ -61,7 +61,7 @@ using namespace std;
 
 #endif //__unix
 
-#include <opencv/cv.h>
+#include <opencv/cv.hpp>
 #include <opencv/highgui.h>
 #include "face_identification.h"
 #include "recognizer.h"
@@ -181,6 +181,8 @@ int main(int argc, char* argv[])
   cv::imwrite("gallery_point_result.jpg", gallery_img_color);
   cv::imwrite("probe_point_result.jpg", probe_img_color);
 
+  imshow("probe", probe_img_color);
+  cv::waitKey(20);
   // Extract face identity feature
   float gallery_fea[2048];
   float probe_fea[2048];

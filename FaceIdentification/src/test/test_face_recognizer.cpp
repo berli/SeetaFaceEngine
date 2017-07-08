@@ -62,7 +62,7 @@ using namespace std;
 #endif //__unix
 
 
-#include <opencv/cv.h>
+#include <opencv/cv.hpp>
 #include <opencv/highgui.h>
 
 #include "face_identification.h"
